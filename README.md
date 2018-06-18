@@ -68,23 +68,30 @@ Thus, the data now has an individual row for each team and each date. See below 
 Then we're able to pass this directly into `ggplot`:
 
 ```R
-ggplot(season.melt, aes(x=date, y=pct, group=team_abbrev, color=team_abbrev, 
+hr <- ggplot(season.melt, aes(x=date, y=pct, group=team_abbrev, color=team_abbrev, 
                               fill=color, frame=date, cumulative=TRUE)) + 
-  geom_line() +
-  # Title Label and Legend Label
+  geom_line(size=1.15) +
   labs(title = "Horse Race", color = "Team") +
-  # Show a label every 3 weeks
-  scale_x_date('Standings as of', date_breaks = '3 weeks', date_labels = '%m/%d') +
-  # Set the color of the teams to the team's primary color
-  scale_color_manual(breaks = season.colors$team_abbrev, values = season.colors$color)
+  scale_x_date('Standings as of', date_breaks = '2 weeks', date_labels = '%m/%d') +
+  scale_y_continuous(name = "Win Percentage") +
+  scale_color_manual(breaks = season.colors$team_abbrev, values = season.colors$color) +
+  geom_dl(aes(label = team_abbrev), method = list(dl.trans(x = x + .2), "last.points")) + 
+  theme_minimal()
+
 ```
 
 This then results in the following plot:
 
 ![plot](static/hr.gif)
 
-[A larger plot is viewable here](static/hr.mp4).
+A larger plot is [downloadable here](static/hr.mp4) or [viewable on Imgur](https://i.imgur.com/9NmSyUa.mp4).
 
 Although this works, it is not pretty and is much more difficult than using the tool.
+
+## About The Code
+
+* View `mlb_horserace.R` for the scraping and tidying.
+
+* View `plot.R` for the code behind Approach #2.
 
 **Disclaimer**: I was not paid in any way for this article. Just really liked using Flourish.
