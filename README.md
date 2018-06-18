@@ -21,7 +21,7 @@ get_standings_by_date <- function(date) {
               league_id=103&\\
               league_id=104&\\
               all_star_sw=%27N%27\\
-              &version=48' \\
+              &version=48', game_date=date)
   
   straight <- straighten(cmd)
   
@@ -81,8 +81,9 @@ hr <- ggplot(season.melt, aes(x=date, y=pct, group=team_abbrev, color=team_abbre
 ```
 
 This then results in the following plot:
-
-![plot](static/hr.gif)
+<p align="center">
+  <img src="static/hr.gif" />
+</p>
 
 A larger plot is [downloadable here](static/hr.mp4) or [viewable on Imgur](https://i.imgur.com/9NmSyUa.mp4).
 
